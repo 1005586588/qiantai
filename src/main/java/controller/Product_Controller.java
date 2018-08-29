@@ -77,7 +77,37 @@ public class Product_Controller {
 		m.put("list", service.select(info));
 		m.put("typelist", tservice.select(new SearchInfo("",false)));
 	}
+	
+	@RequestMapping("select")
+	public String  select(Integer select, String txt, SearchInfo info, ModelMap m) {
 
+		if (select == null) select = 0;
+		String where = "";
+		if (txt != null && txt.length() > 0) {
+			switch (select) {
+			default:
+				where = "where Product.fullname like  '%" + txt + "%' ";
+			}
+		}
+		m.put("select", select);
+		m.put("txt", select == 0 ? "'" + txt + "'" : txt);
+	
+		m.put("productstatus", Product.productstatus);
+		m.put("typerow", tservice.select2());
+		 
+		info.setWhere(where);
+		m.put("search", info);
+//		info.setCanPage(false);
+		m.put("list", service.select(info));
+		m.put("typelist", tservice.select(new SearchInfo("",false)));
+	
+		return "fruit"; 
+	}
+	@RequestMapping("info")
+	public String info(int id,ModelMap m) {
+		m.put("product",service.getById(id));
+		return "product";
+	}
 
 	@RequestMapping("delete")
 	public String delete(int id) {
@@ -95,8 +125,6 @@ public class Product_Controller {
 	public String add(ModelMap m) {
 		m.put("productstatus", Product.productstatus);
 		m.put("typerow", tservice.select2());
-		
-	
 		return "product/edit";
 	}
 

@@ -3,6 +3,7 @@ package entity;
 public class Product {
 	public static String[] productstatus = { "可用", "不可用" };
 
+	int pid;
 	int id;
 	int type_id;
 	int salecount;
@@ -39,8 +40,12 @@ public class Product {
 	
 	
 	
-	
-	
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
 	public int getParentid() {
 		return parentid;
 	}

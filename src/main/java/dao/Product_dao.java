@@ -15,7 +15,7 @@ import util.SearchInfo;
 @Repository
 public interface Product_dao {
 	
-	@Select("select product.*,type.name tname from product inner join type on product.type_id=type.id ${where} ${limit} ")
+	@Select("select product.*,type.name tname,type.parentid pid from product inner join type on product.type_id=type.id ${where} ${limit} ")
 	public List<Product> select(SearchInfo info);
 	
 	@Delete("delete from product where id=#{id}")
