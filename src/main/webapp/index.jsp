@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title></title>
+<title>前台首页</title>
 <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="css/header.css" />
 <link rel="stylesheet" type="text/css" href="css/homepage.css" />
@@ -17,44 +17,74 @@
 }
 </style>
 
-
 <script type="text/javascript">
 $(document).ready(function() {
+	if(${requestScope.typelist==null}||${requestScope.list==null}){
+	window.location.href = "index";
+	}
+	});
 
-if(${requestScope.typelist==null}||${requestScope.list==null}){
-window.location.href = "index";
+function shopping(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "shop?id="+id;
+	}
 }
-
-});
-
+function userinfo(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "userinfo?id="+id;
+	}
+}
+function order(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "order?id="+id;
+	}
+}
+function collect(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "collect?id="+id;
+	}
+}
 
 </script>
 
-
 </head>
 <body>
-
 
 	<div class="box">
 		<div class="header">
 			<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2">徐晓良良良</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2">${sessionScope.user.email}</a></span>
 					</div>
 					<div class="right">
 						<ul>
-							<li>我的订单<em></em></li>
-							<li><a href="shopping.html">购物车<em></em></a></li>
-							<li>收藏夹<em></em></li>
-							<li><a href="The member center.html">会员中心<em></em></li>
-							</a>
+						<c:if test="${sessionScope.user==null}">
+							<li><a href="login2.jsp">登录/注册<em></em></a></li>
+						</c:if>
+							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+							
+							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+							
+							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+							
 							<li>客户服务<em></em></li>
 						</ul>
 						<div class="clear"></div>
-
 					</div>
-
 				</div>
 				<div class="clear"></div>
 
@@ -90,7 +120,7 @@ window.location.href = "index";
 
 					</div>
 					<div class="gouwuche">
-						<a href="shopping.html"><em></em></a><span>购物车</span>
+						<em  onclick="shopping(${sessionScope.user.id});"></em></a><span  onclick="shopping(${sessionScope.user.id});">购物车</span>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -104,12 +134,12 @@ window.location.href = "index";
 							<dl>
 								<c:forEach items="${requestScope.typelist}" var="r">
 									<c:if test="${r.parentid==0}">
-										<dt>${r.name}</dt>
+										<dt ><a style="color: red;" href="select?id=${r.id}&select=1">${r.name}</a></dt>
 									</c:if>
 									<dd>
 										<c:forEach items="${requestScope.typelist}" var="rr">
 											<c:if test="${rr.parentid==r.id}">
-												<a href="">${rr.name}</a>
+												<a href="info?id=${r.id}">${rr.name}</a>
 											</c:if>
 										</c:forEach>
 									</dd>

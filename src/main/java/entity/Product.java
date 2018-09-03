@@ -23,6 +23,10 @@ public class Product {
 	int parentid;
 	String parent_name;
 	String name ;
+	int scount;
+	int sid;
+	
+	
 	
 	public String[] getPiclist() {
 		if(pics.length()<5)return new String[0];
@@ -40,6 +44,18 @@ public class Product {
 	
 	
 	
+	public int getSid() {
+		return sid;
+	}
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
+	public int getScount() {
+		return scount;
+	}
+	public void setScount(int scount) {
+		this.scount = scount;
+	}
 	public int getPid() {
 		return pid;
 	}

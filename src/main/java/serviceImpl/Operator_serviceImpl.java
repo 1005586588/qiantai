@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import dao.Operator_dao;
 import entity.Operator;
+import entity.Orders;
 import service.Operator_service;
 import util.Ids;
 import util.SearchInfo;
@@ -53,6 +54,7 @@ public class Operator_serviceImpl implements Operator_service{
 		dao.updatepassword(o);
 		
 	}
+
 
 	
 }

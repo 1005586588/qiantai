@@ -14,4 +14,8 @@ public interface Orders_service {
 	public Orders getById(int id);
 	
 	public void updatestatus(Orders o);
+	
+	public void insertorder(Orders o);
+	
+	public List<Orders> selectall();
 }

@@ -29,6 +29,16 @@ public class Product_serviceImpl implements Product_service{
 		return dao.getById(id);
 	}
 
+	public List<Product> selectcshopcar(SearchInfo info) {
+		return dao.selectcshopcar(info);
+	}
+
+
+
+	public List<Product> selectproduct(SearchInfo info) {
+		return dao.selectproduct(info);
+	}
+
 
 	
 }

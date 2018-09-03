@@ -15,4 +15,6 @@ public interface Address_service {
 	public void delete(int id);
 	
 	public Address getById(int id);
+	
+	public List<Address> getById2(int id);
 }

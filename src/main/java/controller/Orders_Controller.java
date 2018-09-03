@@ -1,9 +1,11 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,78 +13,75 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import entity.Operator;
 import entity.Orders;
-import entity.Orders_status;
+import entity.User;
 import service.Address_service;
 import service.Orders_service;
-import service.Orders_status_service;
+import service.Product_service;
+import service.Shopcar_service;
 import service.User_service;
 import util.SearchInfo;
-import util.JsonUtil.jsonInfo;
 
 @Controller
-@RequestMapping("orders")
 public class Orders_Controller {
 
 	@Autowired
 	Orders_service service;
 	@Autowired
+	User_service uservice;
+	@Autowired
+	Shopcar_service sservice;
+	@Autowired
+	Product_service pservice;
+	@Autowired
 	Address_service aservice;
-	@Autowired
-	User_service sservice;
-	@Autowired
-	Orders_status_service oservice;
-	
-	@RequestMapping("index")
-	public void index(Integer select, String txt, SearchInfo info, ModelMap m) {
 
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		 Calendar calendar = new GregorianCalendar(); 
-		 calendar.setTime(new Date());
-		 calendar.add(calendar.DATE,1);
-		 String date2 = sdf.format(calendar.getTime());
-		 
+	@RequestMapping("orders")
+	public String orders(String sid,String ids, ModelMap m, SearchInfo info, Integer id, Integer allcount, Integer allcount2,HttpServletRequest req) {
+		String idss = ids;
+		String sids = sid;
 		
-		if (select == null) select = 0;
-		String where = "";
+		req.getSession().removeAttribute("sids");
+		req.getSession().setAttribute("sids", sids);
 		
-		if (txt != null && txt.length() > 0) {
-			switch (Integer.valueOf(txt)) {
-			case 1:
-				calendar.add(calendar.DATE, -30);
-				Date date=calendar.getTime();
-				String date1=sdf.format(date);
-				where = " where  Orders.date < '"+date2+"'  and Orders.date > '"+date1+"' ";
-				break;
-			case 2:
-				calendar.add(calendar.DATE, -7);
-				Date date3=calendar.getTime();
-				String date4=sdf.format(date3);
-				where = " where  Orders.date < '"+date2+"'  and Orders.date > '"+date4+"' ";
-				break;
-			case 3:
-				calendar.add(calendar.DATE, -1);
-				Date date5=calendar.getTime();
-				String date6=sdf.format(date5);	
-				where = " where  Orders.date < '"+date2+"'  and Orders.date > '"+date6+"' ";
-				break;
-			default :
-				
-					
-			}
-		}
-		m.put("select", select);
-		m.put("txt", select == 0 ? "'" + txt + "'" : txt);
-	
-		m.put("typerow1", aservice.select());
-		m.put("typerow2", sservice.select());
+		req.getSession().removeAttribute("idss");
+		req.getSession().setAttribute("idss", idss);
+		
+		req.getSession().removeAttribute("allcount2");
+		req.getSession().setAttribute("allcount2", allcount2);
+		String where = " where user.id = " + id + " && product.id in (" + ids + ") ";
 		info.setWhere(where);
-		m.put("search", info);
-//		info.setCanPage(false);
-		m.put("list", service.select(info));
-	}
+		m.put("orderslist", pservice.selectcshopcar(info));
+		m.put("addresslist", aservice.getById2(id));
+		m.put("allcount", allcount);
 
+		return "orders";
+	}
+	
+	@RequestMapping("orders1")
+	public String orders1(String ids, ModelMap m, SearchInfo info, Integer id, Integer allcount, Integer allcount2,HttpServletRequest req) {
+		String idss = ids;
+		req.getSession().removeAttribute("idss");
+		req.getSession().setAttribute("idss", idss);
+		req.getSession().removeAttribute("allcount2");
+		req.getSession().setAttribute("allcount2", allcount2);
+		String where = " where id in (" + ids + ") ";
+		info.setWhere(where);
+		m.put("orderslist", pservice.selectproduct(info));
+		m.put("addresslist", aservice.getById2(id));
+		m.put("allcount", allcount);
+
+		return "orders";
+	}
+	
+	
+	@RequestMapping("order")
+	public String order(int id,ModelMap m,SearchInfo info,HttpSession session, HttpServletRequest req) {
+		String where = "where Orders.user_id=" + id + "";
+		info.setWhere(where);
+		m.put("orderlist", service.select(info));
+		return "order";
+	}
 
 	@RequestMapping("delete")
 	public String delete(int id) {
@@ -98,19 +97,72 @@ public class Orders_Controller {
 
 	@RequestMapping("updatestatus")
 	public String updatestatus(int id, ModelMap m) {
-		
 		m.put("info", service.getById(id));
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		 String date = sdf.format(new Date());
-		 m.put("date", date);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(new Date());
+		m.put("date", date);
 		return "orders/edit";
 	}
-	
-	@RequestMapping("insert")
-	public @ResponseBody jsonInfo insert(Orders o,Orders_status a) {
-//		o.setId(a.getOrders_id());
+
+	@RequestMapping("update1")
+	public String update1(String code,Orders o,HttpSession session) {
+		
+		o.setStatus(1);
+		o.setCode(code);
 		service.updatestatus(o);
-		oservice.insert(a);
-		return new jsonInfo(1, "");
+		User u= (User) session.getAttribute("user");
+		return "redirect:order?id="+u.getId();
+	}
+	@RequestMapping("update11")
+	public String update11(String code,Orders o,HttpSession session) {
+		
+		o.setStatus(1);
+		o.setCode(code);
+		service.updatestatus(o);
+		User u= (User) session.getAttribute("user");
+		return "redirect:order?id="+u.getId();
+	}
+
+	@RequestMapping("sendorder")
+	public @ResponseBody int sendorder(Orders o, HttpSession session, SearchInfo info, HttpServletRequest req) {
+		if(session.getAttribute("sids")==null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
+			o.setDate(date);
+
+			SimpleDateFormat sfDate = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			String strDate = sfDate.format(new Date());
+			o.setCode(strDate);
+
+			service.insertorder(o);
+			
+			req.getSession().removeAttribute("code");
+			req.getSession().setAttribute("code", strDate);
+			req.getSession().removeAttribute("allcount");
+			req.getSession().setAttribute("allcount", o.getNowamount());
+			return 1;
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
+			o.setDate(date);
+
+			SimpleDateFormat sfDate = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+			String strDate = sfDate.format(new Date());
+			o.setCode(strDate);
+
+			service.insertorder(o);
+			String idss=(String) session.getAttribute("sids");
+			
+			o.setSids(idss);
+			sservice.deleteall(o);
+			
+			req.getSession().removeAttribute("code");
+			req.getSession().setAttribute("code", strDate);
+			req.getSession().removeAttribute("allcount");
+			req.getSession().setAttribute("allcount", o.getNowamount());
+			return 1;
+		}
+		
+		
 	}
 }

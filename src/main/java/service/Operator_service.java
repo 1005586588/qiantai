@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import entity.Operator;
+import entity.Orders;
 import util.Ids;
 import util.SearchInfo;
 
@@ -25,4 +26,6 @@ public interface Operator_service {
 	public Operator login(Operator o);
 	
 	public void updatepassword(Operator o);
+	
+	
 }

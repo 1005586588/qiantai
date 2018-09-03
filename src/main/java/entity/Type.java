@@ -1,7 +1,7 @@
 package entity;
 
 public class Type {
-	private int id ;
+	 int id ;
 	String name ;
 	int parentid;
 	String parent_name;

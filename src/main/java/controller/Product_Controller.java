@@ -79,26 +79,28 @@ public class Product_Controller {
 	}
 	
 	@RequestMapping("select")
-	public String  select(Integer select, String txt, SearchInfo info, ModelMap m) {
-
+	public String  select(Integer id,Integer select, String txt, SearchInfo info, ModelMap m) {
 		if (select == null) select = 0;
 		String where = "";
+		if (select == 1) {
+			where = " where type.parentid= " + id+ " ";
+		}
 		if (txt != null && txt.length() > 0) {
 			switch (select) {
 			default:
-				where = "where Product.fullname like  '%" + txt + "%' ";
+				where = " where Product.fullname like  '%" + txt + "%' ";
 			}
 		}
 		m.put("select", select);
 		m.put("txt", select == 0 ? "'" + txt + "'" : txt);
-	
 		m.put("productstatus", Product.productstatus);
 		m.put("typerow", tservice.select2());
-		 
 		info.setWhere(where);
 		m.put("search", info);
 //		info.setCanPage(false);
+		
 		m.put("list", service.select(info));
+		
 		m.put("typelist", tservice.select(new SearchInfo("",false)));
 	
 		return "fruit"; 
@@ -107,18 +109,6 @@ public class Product_Controller {
 	public String info(int id,ModelMap m) {
 		m.put("product",service.getById(id));
 		return "product";
-	}
-
-	@RequestMapping("delete")
-	public String delete(int id) {
-		service.delete(id);
-		return "redirect:index";
-	}
-
-	@RequestMapping("deleteall")
-	public String deleteall(String ids) {
-		// SqlHelper.executeUpdate("delete from quesbal where id in ("+ids+") ");
-		return "redirect:index";
 	}
 
 	@RequestMapping("add")
@@ -133,6 +123,13 @@ public class Product_Controller {
 		m.put("info", service.getById(id));
 		return add(m);
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

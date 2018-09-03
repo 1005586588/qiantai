@@ -14,10 +14,20 @@ public class Orders {
 	int user_id;
 	int  assessstatus;
 	int status;
+	String tel;
+	String aaddr;
 	String comments;
 	String aname;
 	String uname;
+	String ids;
+	String atel;
+	String sids;
 	
+	
+	
+	
+	
+	double allcount;
 	
 	public String  getSa() {
 		return sstatus[status];
@@ -27,8 +37,54 @@ public class Orders {
 	}
 	
 	
-
-
+	public String getSids() {
+		return sids;
+	}
+	public void setSids(String sids) {
+		this.sids = sids;
+	}
+	public String getAtel() {
+		return atel;
+	}
+	public void setAtel(String atel) {
+		this.atel = atel;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getAaddr() {
+		return aaddr;
+	}
+	public void setAaddr(String aaddr) {
+		this.aaddr = aaddr;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+	public double getNowamount() {
+		return nowamount;
+	}
+	public void setNowamount(double nowamount) {
+		this.nowamount = nowamount;
+	}
+	public double getAllcount() {
+		return allcount;
+	}
+	public void setAllcount(double allcount) {
+		this.allcount = allcount;
+	}
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 	public int getAssessstatus() {
 		return assessstatus;
 	}
@@ -65,24 +121,14 @@ public class Orders {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public double getAmount() {
-		return amount;
-	}
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+
 	public String getCode() {
 		return code;
 	}
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public double getNowamount() {
-		return nowamount;
-	}
-	public void setNowamount(double nowamount) {
-		this.nowamount = nowamount;
-	}
+
 	public int getAddress_id() {
 		return address_id;
 	}

@@ -22,7 +22,6 @@ public class Orders_serviceImpl implements Orders_service{
 
 	public void delete(int id) {
 		dao.delete(id);
-		
 	}
 
 	public Orders getById(int id) {
@@ -32,8 +31,16 @@ public class Orders_serviceImpl implements Orders_service{
 	public void updatestatus(Orders o) {
 		dao.updatestatus(o);
 	}
-	
 
+	public void insertorder(Orders o) {
+		dao.insertorder(o);
+		
+	}
+
+	public List<Orders> selectall() {
+		return dao.selectall();
+	}
+	
 
 	
 }

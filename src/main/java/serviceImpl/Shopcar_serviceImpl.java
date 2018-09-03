@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.Shopcar_dao;
+import entity.Orders;
 import entity.Shopcar;
 import service.Shopcar_service;
 import util.SearchInfo;
@@ -28,8 +29,16 @@ public class Shopcar_serviceImpl implements Shopcar_service{
 	public Shopcar getById(int id) {
 		return dao.getById(id);
 	}
+
+	public void insert(Shopcar s) {
+		dao.insert(s);
+	}
+
+	public void deleteall(Orders o) {
+dao.deleteall(o);		
+	}
+
+
 	
-
-
 	
 }

@@ -17,7 +17,7 @@ public interface Address_dao {
 	@Select("select * from Address ")
 	public List<Address> select();
 	
-	@Insert("insert into Address (name,parentid) values(#{name},#{parentid})")
+	@Insert("insert into Address (user_id,zone,addr,name,tel,status) values(#{user_id},#{zone},#{addr},#{name},#{tel},#{status})")
 	public void insert(Address a);
 
 	@Update("update Address set name=#{name},parentid=#{parentid} where id=#{id}")
@@ -28,6 +28,8 @@ public interface Address_dao {
 	
 	@Select("select * from Address where id=#{id}")
 	public Address getById(int id);
-
+	
+	@Select("select * from Address where user_id=#{user_id}")
+	public List<Address> getById2(int id);
 	
 }

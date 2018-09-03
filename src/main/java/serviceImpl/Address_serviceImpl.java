@@ -35,6 +35,11 @@ public void insert(Address t) {
 		return dao.getById(id);
 	}
 
+	public List<Address> getById2(int id) {
+		return dao.getById2(id);
+	}
+
+
 
 
 	

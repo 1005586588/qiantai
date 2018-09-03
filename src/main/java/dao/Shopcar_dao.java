@@ -3,9 +3,11 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import entity.Orders;
 import entity.Shopcar;
 import util.SearchInfo;
 
@@ -19,8 +21,16 @@ public interface Shopcar_dao {
 	@Delete("delete from shopcar where id=#{id}")
 	public void delete(int id);
 	
+	@Delete("delete from shopcar where id in (${sids})")
+	public void deleteall(Orders o);
+	
+	@Delete("delete from shopcar where id=#{id}")
+	public void shopcardelet(String id);
+	
 	@Select("select * from shopcar where id=#{id}")
 	public Shopcar getById(int id);
-
+	
+	@Insert("insert into shopcar (product_id,user_id,count) values(#{product_id},#{user_id},#{count})")
+	public void insert(Shopcar s);
 	
 }

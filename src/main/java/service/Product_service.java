@@ -14,7 +14,7 @@ public interface Product_service {
 	
 	public Product getById(int id);
 	
+	public List<Product> selectcshopcar(SearchInfo info);
 	
-	
-	
+	public List<Product> selectproduct(SearchInfo info);
 }

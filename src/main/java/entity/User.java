@@ -14,7 +14,15 @@ public class User {
 	double amount;
 	int status;
 	String comments;
+	String newpassword;
 	
+	
+	public String getNewpassword() {
+		return newpassword;
+	}
+	public void setNewpassword(String newpassword) {
+		this.newpassword = newpassword;
+	}
 	public String getUsera() {
 		return userstatus[status];
 	}	

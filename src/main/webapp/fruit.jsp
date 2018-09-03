@@ -135,7 +135,8 @@
 			   
 			   <c:forEach items="${requestScope.list}" var="r">
 			   <div class="xpss2">
-			   	<li style="margin-right: 5px; margin-top: 5px;">
+			   
+			   	<a  href="info?id=${r.id}"><li style="margin-right: 5px; margin-top: 5px;">
 			   		<img src="${r.pics}" width="60" height="90" />
 			   		<div class="wenzi">
 			   			<p class="p1">${r.fullname}</span></p>
@@ -143,6 +144,7 @@
 				   		<p class="p3">已售<span>${r.salecount}</span>件</p>
 			   		</div>
 			   	</li>
+			   	</a>
 			   	</div>
 			   	</c:forEach>
 			   
