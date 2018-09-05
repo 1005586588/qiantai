@@ -12,29 +12,86 @@
 <title>我的甜品，你的爱~</title>
 <link rel="shortcut icon" href="images/logo_01.png">
 <link rel="stylesheet" href="css/order.css">
+<link rel="stylesheet" type="text/css" href="css/header.css" />
+
 
 <script type="text/javascript">
+
 	function status1() {
 		alert("支付成功！！")
-		var code = ${sessionScope.code};
+		var code = "${sessionScope.code}";
 		location.href = "update11?code=" + code;
-
+	}
+	function status3() {
+		alert("收货成功！！")
+		var code ="${sessionScope.code}";
+		location.href = "update13?code=" + code;
+	}
+	function status4() {
+		alert("退货成功！！")
+		var code = "${sessionScope.code}";
+		location.href = "update14?code=" + code;
+	}
+	
+	function shopping(id){
+		if(${sessionScope.user==null}){
+			alert("请先登录！！！")
+			location.href = "login2.jsp";
+		}else{
+		location.href = "shop?id="+id;
+		}
+	}
+	function userinfo(id){
+		if(${sessionScope.user==null}){
+			alert("请先登录！！！")
+			location.href = "login2.jsp";
+		}else{
+		location.href = "userinfo?id="+id;
+		}
+	}
+	function order(id){
+		if(${sessionScope.user==null}){
+			alert("请先登录！！！")
+			location.href = "login2.jsp";
+		}else{
+		location.href = "order?id="+id;
+		}
+	}
+	function collect(id){
+		if(${sessionScope.user==null}){
+			alert("请先登录！！！")
+			location.href = "login2.jsp";
+		}else{
+		location.href = "collect?id="+id;
+		}
 	}
 </script>
 </head>
 <body>
+<div id="headCon">
 	<!--页头-->
-	<div id="headCon">
-		<div>
-			<p>我的甜品 你的爱~</p>
-			<ol>
-				<li><a href="login.html">请登录</a></li>
-				<li><a href="register.html">注册</a></li>
-				<a href="order.html" class="order">我的订单</a>
-				<a href="shoppingCar.html" class="shoppingCar"> <i></i> <span>购物车（0）</span>
-				</a>
-			</ol>
-		</div>
+	<div class="header1">
+				<div class="header1-cont">
+					<div class="left">
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
+					</div>
+					<div class="right">
+						<ul>
+						<c:if test="${sessionScope.user==null}">
+							<li><a href="login2.jsp">登录/注册<em></em></a></li>
+						</c:if>
+							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+							<li><a href="login2.jsp">注销<em></em></a></li>							
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		
 		<ul>
 			<a href="index.html"><li></li></a>
 			<ol>
@@ -47,7 +104,7 @@
 					<button></button></li>
 			</ol>
 		</ul>
-	</div>
+		</div>
 	<!--内容-->
 	<div id="contentCon">
 		<div class="left">
@@ -55,14 +112,11 @@
 			<p>晨曦夏夜</p>
 			<a href="#">切换账号</a> <span></span>
 			<ul>
-				<li><a href="userinfo.html">个人信息</a></li>
-				<li><a href="#" class="my">我的订单</a></li>
-				<li><a href="#">我的钱包</a></li>
-				<li><a href="#">优惠特权</a></li>
-				<li><a href="#">地址管理</a></li>
-				<li><a href="#">账号设置</a></li>
-				<li><a href="#">我的足迹</a></li>
-				<li><a href="#">收藏夹</a></li>
+				<li><a onclick="userinfo(${sessionScope.user.id});">个人信息</a></li>
+				<li><a onclick="order(${sessionScope.user.id});" class="my">我的订单</a></li>
+<!-- 				<li><a href="#">地址管理</a></li> -->
+				<li><a onclick="shopping(${sessionScope.user.id});">购物车</a></li>
+				<li><a onclick="collect(${sessionScope.user.id});">收藏夹</a></li>
 			</ul>
 		</div>
 		<div class="right">
@@ -94,7 +148,8 @@
 						</li>
 						<li><a href="#">评论：</a> <a href="#" class="text02">${o.assessstatusa}</a>
 						</li>
-						<li><c:if test="${o.status==0}">
+						<li>
+							<c:if test="${o.status==0}">
 								<a href="#">状态：</a>
 								<a href="#" class="text02">${o.sa}</a>
 								<span>
@@ -102,10 +157,38 @@
 										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
 										onclick="status1();">支付</button>
 								</span>
-							</c:if> <c:if test="${o.status!=0}">
+							</c:if>
+							<c:if test="${o.status==2}">
 								<a href="#">状态：</a>
 								<a href="#" class="text02">${o.sa}</a>
-							</c:if></li>
+								<span>
+									<button
+										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
+										onclick="status3();">收货</button>
+										<button
+										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
+										onclick="status4();">退货</button>
+								</span>
+							</c:if>  
+							<c:if test="${o.status==1}">
+								<a href="#">状态：</a>
+								<a href="#" class="text02">${o.sa}</a>
+							</c:if>
+							<c:if test="${o.status==3}">
+								<a href="#">状态：</a>
+								<a href="#" class="text02">${o.sa}</a>
+							</c:if>
+							<c:if test="${o.status==4}">
+								<a href="#">状态：</a>
+								<a href="#" class="text02">${o.sa}</a>
+							</c:if>
+							<c:if test="${o.status==5}">
+								<a href="#">状态：</a>
+								<a href="#" class="text02">${o.sa}</a>
+							</c:if>
+							
+							
+						</li>
 					</ul>
 				</div>
 			</c:forEach>

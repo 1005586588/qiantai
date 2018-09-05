@@ -53,6 +53,7 @@ public class User_Controller {
 		if(o.getPassword().equals(opass.getPassword())) {
 			service.updateuserpassword(o);
 			User opass2= service.getById(id);
+			req.getSession().removeAttribute("user");
 			req.getSession().setAttribute("user", opass2);
 			return 1;
 		}else {

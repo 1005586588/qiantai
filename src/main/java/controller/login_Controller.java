@@ -25,6 +25,7 @@ public class login_Controller {
 			}else {
 			User sqlUser= uservice.login(u);
 			 if(u.getPassword().equals(sqlUser.getPassword())) {
+				req.getSession().removeAttribute("user");
 				req.getSession().setAttribute("user", sqlUser);
 				req.getSession().setMaxInactiveInterval(100000);
 				return "redirect:index.jsp";
@@ -34,4 +35,12 @@ public class login_Controller {
 			}
 			}
 	}
+	
+	@RequestMapping("zhuxaio")
+    public String zhuxaio(HttpSession session){
+		session.removeAttribute("user");
+		return "redirect:login2.jsp";
+	}
+	
+	
 }

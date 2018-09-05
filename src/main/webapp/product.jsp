@@ -7,7 +7,9 @@
 <head>
 <meta charset="utf-8">
 <title>产品详情</title>
-<link rel="stylesheet" type="text/css" href="css/product.css">
+<link rel="stylesheet" type="text/css" href="css/product.css" />
+<link rel="stylesheet" type="text/css" href="css/header.css" />
+
 <script src="js/jquery.min.1.11.js"></script>
 </head>
 <script type="text/javascript">
@@ -192,15 +194,29 @@ $(document).ready(function(){
 
 		function addcar(){
 			
+			
 			if(${sessionScope.user==null}){
 				alert("请先登录！！！")
 				location.href = "login2.jsp";
-			}else{
+			}
+			
+			else{
 				var product_id=${requestScope.product.id};
-				var user_id=${sessionScope.user.id};
+				var user_id='${sessionScope.user.id}';
 				var count=parseInt($(".n2").text());
-				location.href = "addcar?product_id="+product_id +"&user_id="+user_id+"&count="+count;
-				alert("成功添加到购物车！！！")
+				$.ajax({
+					url:"confirm",
+					type:"POST",
+					data:{product_id:product_id,user_id:user_id},
+					success:function(data){
+						if(data==1){
+						alert("购物车中已存在！！！");
+					}else{
+						location.href = "addcar?product_id="+product_id +"&user_id="+user_id+"&count="+count;
+						alert("成功添加到购物车！！！");
+					}
+				}
+				});
 			}
 		};
 		
@@ -213,7 +229,7 @@ function sendorder(){
 				var allcount=${requestScope.product.nowprice};
 				var allcount2=${requestScope.product.price};
 				var product_id=${requestScope.product.id};
-				var user_id=${sessionScope.user.id};
+				var user_id='${sessionScope.user.id}';
 				location.href = "orders1?ids="+product_id +"&id="+user_id+ "&allcount="
 				+ allcount+"&allcount2="+allcount2 ;
 			}
@@ -227,11 +243,42 @@ function shoucang(){
 			}else{
 			
 				var product_id=${requestScope.product.id};
-				var user_id=${sessionScope.user.id};
+				var user_id='${sessionScope.user.id}';
 				location.href = "shoucang?product_id="+product_id +"&user_id="+user_id ;
 			}
 		};
-		
+		function shopping(id){
+			if(${sessionScope.user==null}){
+				alert("请先登录！！！")
+				location.href = "login2.jsp";
+			}else{
+			location.href = "shop?id="+id;
+			}
+		}
+		function userinfo(id){
+			if(${sessionScope.user==null}){
+				alert("请先登录！！！")
+				location.href = "login2.jsp";
+			}else{
+			location.href = "userinfo?id="+id;
+			}
+		}
+		function order(id){
+			if(${sessionScope.user==null}){
+				alert("请先登录！！！")
+				location.href = "login2.jsp";
+			}else{
+			location.href = "order?id="+id;
+			}
+		}
+		function collect(id){
+			if(${sessionScope.user==null}){
+				alert("请先登录！！！")
+				location.href = "login2.jsp";
+			}else{
+			location.href = "collect?id="+id;
+			}
+		}		
 		
 		
 $(function() {
@@ -252,54 +299,84 @@ $(function() {
 </script>
 <body>
 	<!---head--------->
-	<div class="header">
-		<div class="box">
-			<div class="title">
-				<img class="images01" src="images/logo01.jpg" alt="这是一张图片"> <a
-					href="index.html"><div>菲兹首页</div></a> <a href="user.html"><p>
-						<span>crazy</span>
-					</p></a> <a href="user.html"><p>积分13</p></a> <a href="#"><p>消息</p></a> <a
-					href="#"><p>我的收藏</p></a> <a href="orders.html"><p>
-						<img src="images/logo02.jpg">我的订单
-					</p></a> <a href="shopping.html"><p>
-						<img src="images/logo03.jpg">购物篮
-					</p></a>
+	<div class="header1">
+		<div class="header1-cont">
+			<div class="left">
+				欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
+			</div>
+			<div class="right">
+				<ul>
+					<c:if test="${sessionScope.user==null}">
+						<li><a href="login2.jsp">登录/注册<em></em></a></li>
+					</c:if>
+					<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+					<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+					<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+					<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+					<li><a href="login2.jsp">注销<em></em></a></li>
+
+				</ul>
+				<div class="clear"></div>
 			</div>
 		</div>
-		<div class="logoCon">
-			<img src="images/logodianming.jpg" alt="这是一张图片"> <input
-				id="souCang" type="submit" value="+收藏">
-			</form>
-			<form>
-				<input id="search" type="text" value="" placeholder="输入你想要的商品"><input
-					id="souSuo" type="submit" value="搜索">
-			</form>
-		</div>
+		<div class="clear"></div>
 	</div>
+
 	<!-----图片------>
-	<div class="pic">
-		<img src="images/images51.jpg" alt="这是一张图片">
+	<div class="header2">
+		<div class="header2-cont">
+			<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
+			<!--172*62-->
+			<div class="sousuo">
+				<div class="sousuo-up">
+					<form action="select" method="post">
+						<input type="text" name="txt" id="" value="" placeholder="泰国榴莲" />
+						<em></em>
+						<button
+							style="cursor: pointer; font-size: 14px; color: #ffffff; line-height: 28px; width: 60px; height: 28px; text-align: center; background: #D63A3B; position: absolute; top: 0; right: 0;"
+							type="submit">查询</button>
+					</form>
+				</div>
+				<div class="sousuo-down">
+					<ul>
+						<li><a class="red" href="">热门：</a></li>
+						<li><a class="red" href="">牛油果</a></li>
+						<li><a href="">草莓</a></li>
+						<li><a a class="red" href="">草莓</a></li>
+						<li><a href="">三文鱼</a></li>
+						<li><a a class="red" href="">有机菠菜</a></li>
+						<li><a href="">蓝莓</a></li>
+						<li><a class="red" href="">百香果</a></li>
+						<li><a href="">牛肉</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+			<div class="gouwuche">
+				<em onclick="shopping(${sessionScope.user.id});"></em></a><span
+					onclick="shopping(${sessionScope.user.id});">购物车</span>
+			</div>
+		</div>
+		<div class="clear"></div>
+
 	</div>
-	<!----导航部分-------------------------->
-	<div class="navCon">
-		<ul class="nav">
-			<a class="active" href="#">首页</a>
-			<a href="#"> 所有宝贝</a>
-			<a href="#">毛呢外套</a>
-			<a href="#">羽绒服</a>
-			<a href="#">棉服</a>
-			<a href="#">连衣裙</a>
-			<a href="#">卫衣</a>
-			<a href="#">毛衣</a>
-			<a href="#">衬衫</a>
-			<a href="#">清仓特惠</a>
-		</ul>
+
+
+	<div class="cont"
+		style="margin-bottom:15px; color: #333333; font-size: 12px; line-height: 150%; width: 100%; border-top: 1px solid #D63A3B; margin-top: 20px;">
+
+		<div class="banner" style="width: 1200px; margin: 0 auto;">
+			<img style="width: 100%;" src="img/sha.png" />
+		</div>
+		
 	</div>
+
 	<!---产品------------------------------>
 	<div class="products">
 		<div class="preview">
 			<div id="vertical" class="bigImg">
-				<img src="${requestScope.product.pics}" width="400" height="400"
+				<img src="${requestScope.product.pic}" width="400" height="400"
 					alt="" id="midimg" />
 				<div style="display: none;" id="winSelector"></div>
 			</div>
@@ -308,12 +385,9 @@ $(function() {
 				<div class="scrollbutton smallImgUp disabled"></div>
 				<div id="imageMenu">
 					<ul>
-						<li id="onlickImg"><img src="${requestScope.product.pics}"
-							alt="模特" /></li>
-						<li><img src="${requestScope.product.pics}" alt="模特" /></li>
-						<li><img src="${requestScope.product.pics}" alt="模特" /></li>
-						<li><img src="${requestScope.product.pics}" alt="模特" /></li>
-						<li><img src="${requestScope.product.pics}" alt="模特" /></li>
+						<c:forEach items="${requestScope.product.piclist}" var="p">
+							<li id="onlickImg"><img src="${p}" alt="模特" /></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -322,19 +396,18 @@ $(function() {
 				<img width="800" height="800" alt="" src="" />
 			</div>
 		</div>
-		<div class="product">
-			<div
-				style="margin-top: -40px; font-size: 14px; color: #666; line-height: 25px;">
-				<p>
+		<div class="product" style="margin-top: 30px !important;">
+			<div style="font-size: 14px; color: #666; line-height: 25px;">
+				<p style="margin-bottom: 10px;">
 					产品名：<span>${requestScope.product.fullname}</span>
 				</p>
-				<p>
+				<p style="margin-bottom: 10px;">
 					活动：<span>${requestScope.product.activity}</span>
 				</p>
-				<p>
+				<p style="margin-bottom: 10px;">
 					提示：<span>${requestScope.product.tip}</span>
 				</p>
-				<p>
+				<p style="margin-bottom: 12px;">
 					优惠：<span>${requestScope.product.sale}</span>
 				</p>
 			</div>
@@ -351,22 +424,7 @@ $(function() {
 				<p>收藏：</p>
 				<input onclick="shoucang();" type="button" value="收藏商品">
 			</div>
-			<div class="words03">
-				<p>颜色分类：</p>
-				<img class="color_type" src="${requestScope.product.pics}"
-					width="40px" height="40px" alt="模特"> <img class="color_type"
-					src="${requestScope.product.pics}" width="40px" height="40px"
-					alt="模特">
-			</div>
-			<div class="words04">
-				<p>尺码：</p>
-				<ul class="cloth_type">
-					<li>S</li>
-					<li>M</li>
-					<li>L</li>
-					<li>XL</li>
-				</ul>
-			</div>
+
 			<div class="words05">
 				<p>数量：</p>
 				<span class="n1">-</span> <span class="n2">1</span> <span class="n3">+</span>

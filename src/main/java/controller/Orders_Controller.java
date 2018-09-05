@@ -122,6 +122,15 @@ public class Orders_Controller {
 		User u= (User) session.getAttribute("user");
 		return "redirect:order?id="+u.getId();
 	}
+	@RequestMapping("update13")
+	public String update13(String code,Orders o,HttpSession session) {
+		
+		o.setStatus(3);
+		o.setCode(code);
+		service.updatestatus(o);
+		User u= (User) session.getAttribute("user");
+		return "redirect:order?id="+u.getId();
+	}
 
 	@RequestMapping("sendorder")
 	public @ResponseBody int sendorder(Orders o, HttpSession session, SearchInfo info, HttpServletRequest req) {

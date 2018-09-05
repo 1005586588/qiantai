@@ -516,7 +516,7 @@ function editaddr(){
 												<div class="item-row">
 													<div class="col col-1">
 														<div class="g-pic">
-															<img src="${o.pics}" width="40" height="40" />
+															<img src="${o.pic}" width="40" height="40" />
 														</div>
 														<div class="g-info">
 															<a href="#"> ${o.fullname} </a>

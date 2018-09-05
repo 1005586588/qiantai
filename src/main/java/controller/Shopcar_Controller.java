@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.Shopcar;
 import service.Product_service;
 import service.Shopcar_service;
-import service.User_service;
 import util.SearchInfo;
 
 @Controller
@@ -19,8 +19,7 @@ public class Shopcar_Controller {
 	Shopcar_service service;
 	@Autowired
 	Product_service pservice;
-	@Autowired
-	User_service sservice;
+
 	
 	@RequestMapping(value="shop", method = RequestMethod.GET)
 	public String shopping(Integer id, SearchInfo info, ModelMap m) {
@@ -37,11 +36,18 @@ public class Shopcar_Controller {
 		int id = s.getUser_id();
 		return "redirect:shop?id="+id;
 	}
-//
-//	@RequestMapping("deleteall")
-//	public String deleteall(String ids) {
-//		// SqlHelper.executeUpdate("delete from quesbal where id in ("+ids+") ");
-//		return "redirect:index";
-//	}
+	
+	@RequestMapping("confirm")
+	public @ResponseBody int confirm(int user_id,int product_id,SearchInfo info) {
+		
+		String where=" where user_id="+user_id+" and product_id="+product_id+"";
+		info.setWhere(where);
+		if(service.select(info)!=null) {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+
 
 }

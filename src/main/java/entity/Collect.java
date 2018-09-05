@@ -12,7 +12,14 @@ public class Collect {
 	double nowprice;
 	String fullname;
 	
-	
+	public String getPic() {
+		if(pics.length()<5)return null;
+		String [] pic=pics.split(",");
+		
+		if(pic.length>0)
+		return pic[0];
+		else return null;
+	}
 	public String getPics() {
 		return pics;
 	}

@@ -10,8 +10,6 @@
 <link rel="stylesheet" type="text/css" href="css/header.css" />
 <link rel="stylesheet" type="text/css" href="css/the member center.css" />
 <link rel="stylesheet" type="text/css" href="css/footer.css" />
-
-
 <link href="houtai_css/assets/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="houtai_css/css/style.css" />
 <link href="houtai_css/assets/css/codemirror.css" rel="stylesheet">
@@ -19,50 +17,89 @@
 <link rel="stylesheet" href="houtai_css/font/css/font-awesome.min.css" />
 <script src="houtai_css/js/jquery-1.9.1.min.js"></script>
 <script src="houtai_css/assets/layer/layer.js" type="text/javascript"></script>
-<script src="houtai_css/assets/laydate/laydate.js"
-	type="text/javascript"></script>
+<script src="houtai_css/assets/laydate/laydate.js" type="text/javascript"></script>
 <script src="houtai_css/assets/js/bootstrap.min.js"></script>
 <script src="houtai_css/assets/js/typeahead-bs2.min.js"></script>
 <script src="houtai_css/assets/js/jquery.dataTables.min.js"></script>
 <script src="houtai_css/assets/js/jquery.dataTables.bootstrap.js"></script>
 
+<script type="text/javascript">
 
+function shopping(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "shop?id="+id;
+	}
+}
+function userinfo(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "userinfo?id="+id;
+	}
+}
+function order(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "order?id="+id;
+	}
+}
+function collect(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "collect?id="+id;
+	}
+}
+
+</script>
 </head>
 <body>
 	<div class="box">
-
 		<div class="header">
+		
 			<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2">徐晓良良良</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
 					</div>
 					<div class="right">
 						<ul>
-							<li>我的订单<em></em></li>
-							<li><a href="shopping.html">购物车<em></em></a></li>
-							<li>收藏夹<em></em></li>
-							<li><a href="membercenter.jsp">会员中心<em></em></li>
-							</a>
-							<li>客户服务<em></em></li>
+						<c:if test="${sessionScope.user==null}">
+							<li><a href="login2.jsp">登录/注册<em></em></a></li>
+						</c:if>
+							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+							<li><a href="login2.jsp">注销<em></em></a></li>
 						</ul>
 						<div class="clear"></div>
-
 					</div>
-
 				</div>
 				<div class="clear"></div>
-
 			</div>
+			
+			
 			<div class="header2">
 				<div class="header2-cont">
 					<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
 					<!--172*62-->
 					<div class="sousuo">
 						<div class="sousuo-up">
-							<input type="text" name="" id="" value="" placeholder="泰国榴莲" />
-							<em></em>
-							<p>搜索</p>
+							<form action="select" method="post">
+								<input type="text" name="txt" id="" value="" placeholder="泰国榴莲" />
+								<em></em>
+								<button
+									style="cursor: pointer; font-size: 14px; color: #ffffff; line-height: 28px; width: 60px; height: 28px; text-align: center; background: #D63A3B; position: absolute; top: 0; right: 0;"
+									type="submit">查询</button>
+							</form>
 						</div>
 						<div class="sousuo-down">
 							<ul>
@@ -78,15 +115,15 @@
 							</ul>
 							<div class="clear"></div>
 						</div>
-
 					</div>
 					<div class="gouwuche">
-						<a href="shopping.html"><em></em></a><span>购物车</span>
+						<em  onclick="shopping(${sessionScope.user.id});"></em></a><span  onclick="shopping(${sessionScope.user.id});">购物车</span>
 					</div>
 				</div>
 				<div class="clear"></div>
-
 			</div>
+			
+			
 			<div class="header3">
 				<div class="header3-cont">
 					<ul>

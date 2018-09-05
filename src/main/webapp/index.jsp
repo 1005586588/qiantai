@@ -56,6 +56,9 @@ function collect(id){
 	location.href = "collect?id="+id;
 	}
 }
+function zhuxiao(){
+	location.href = "zhuxiao";
+}
 
 </script>
 
@@ -64,10 +67,11 @@ function collect(id){
 
 	<div class="box">
 		<div class="header">
+			
 			<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2">${sessionScope.user.email}</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
 					</div>
 					<div class="right">
 						<ul>
@@ -75,20 +79,20 @@ function collect(id){
 							<li><a href="login2.jsp">登录/注册<em></em></a></li>
 						</c:if>
 							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
-							
 							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
-							
 							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
 							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+<!-- 							<li><a onclick="zhuxiao();">注销<em></em></a></li> -->
+							<li><a href="login2.jsp">注销<em></em></a></li>
 							
-							<li>客户服务<em></em></li>
 						</ul>
 						<div class="clear"></div>
 					</div>
 				</div>
 				<div class="clear"></div>
-
 			</div>
+			
+			
 			<div class="header2">
 				<div class="header2-cont">
 					<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
@@ -117,15 +121,14 @@ function collect(id){
 							</ul>
 							<div class="clear"></div>
 						</div>
-
 					</div>
 					<div class="gouwuche">
 						<em  onclick="shopping(${sessionScope.user.id});"></em></a><span  onclick="shopping(${sessionScope.user.id});">购物车</span>
 					</div>
 				</div>
 				<div class="clear"></div>
-
 			</div>
+			
 			<div class="header3">
 				<div class="header3-cont">
 					<ul>
@@ -136,10 +139,10 @@ function collect(id){
 									<c:if test="${r.parentid==0}">
 										<dt ><a style="color: red;" href="select?id=${r.id}&select=1">${r.name}</a></dt>
 									</c:if>
-									<dd>
+									<dd >
 										<c:forEach items="${requestScope.typelist}" var="rr">
 											<c:if test="${rr.parentid==r.id}">
-												<a href="info?id=${r.id}">${rr.name}</a>
+												<a style="margin-right: 12px;"  href="info?id=${r.id}">${rr.name}</a>
 											</c:if>
 										</c:forEach>
 									</dd>
@@ -250,7 +253,7 @@ function collect(id){
 							<c:if test="${r.pid==t.id}">
 								<a class="a2" href="info?id=${r.id}"> <em></em>
 									<p class="p1">
-										<img src="${r.pics}" width="60" height="90" />
+										<img src="${r.pic}" width="60" height="90" />
 									</p>
 									<p class="p2">${r.fullname}</p>
 									<p class="p3">${r.tip}</p>

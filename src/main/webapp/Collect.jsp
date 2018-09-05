@@ -11,24 +11,71 @@
 <link rel="stylesheet" href="css/shoppingCar.css"> 
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/carts.css">
+<link rel="stylesheet" type="text/css" href="css/header.css" />
+<script type="text/javascript">
+function shopping(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "shop?id="+id;
+	}
+}
+function userinfo(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "userinfo?id="+id;
+	}
+}
+function order(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "order?id="+id;
+	}
+}
+function collect(id){
+	if(${sessionScope.user==null}){
+		alert("请先登录！！！")
+		location.href = "login2.jsp";
+	}else{
+	location.href = "collect?id="+id;
+	}
+}
+
+</script>
 
 </head>
-
 <body>
 <!--页头-->
 <div id="headCon">
-	<div>
-    	<p>我的甜品 你的爱~</p>
-        <ol>
-            <li><a href="login.html">请登录</a></li>
-            <li><a href="register.html">注册</a></li>
-            <a href="order.html">我的订单</a>
-            <!--<a href="#" class="shoppingCar">
-            	<i></i>
-            	<span>购物车（0）</span>
-            </a>-->
-        </ol>
-    </div>
+	
+    <div class="header1">
+				<div class="header1-cont">
+					<div class="left">
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
+					</div>
+					<div class="right">
+						<ul>
+						<c:if test="${sessionScope.user==null}">
+							<li><a href="login2.jsp">登录/注册<em></em></a></li>
+						</c:if>
+							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+							<li><a href="login2.jsp">注销<em></em></a></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</div>
+			<div class="clear"></div>
+		</div>
+    
+    
     <ul>
     	<a href="index.html"><li></li></a>
         <p>我的收藏</p>
@@ -91,7 +138,7 @@
                         <label for="checkbox_2"></label>
                     </li>
                     <li class="list_con">
-                        <div class="list_img"><a href="javascript:;"><img src="${r.pics}"alt=""></a></div>
+                        <div class="list_img"><a href="javascript:;"><img src="${r.pic}"alt=""></a></div>
                         <div class="list_text"><a href="javascript:;">${r.fullname}</a></div>
                     </li>
                     <li class="list_info">
