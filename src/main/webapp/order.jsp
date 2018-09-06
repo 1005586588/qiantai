@@ -17,21 +17,19 @@
 
 <script type="text/javascript">
 
-	function status1() {
+	function aaa(code,id,amount) {
 		alert("支付成功！！")
-		var code = "${sessionScope.code}";
-		location.href = "update11?code=" + code;
+		location.href = "update1?code=" + code+ "&orders_id="+ id + "&amount="+amount;
 	}
-	function status3() {
+	function status3(code,id,amount) {
 		alert("收货成功！！")
-		var code ="${sessionScope.code}";
-		location.href = "update13?code=" + code;
+		location.href = "update13?code=" + code + "&orders_id="+ id + "&amount="+amount;
 	}
-	function status4() {
+	function status4(code,id,amount) {
 		alert("退货成功！！")
-		var code = "${sessionScope.code}";
-		location.href = "update14?code=" + code;
+		location.href = "update14?code=" + code + "&orders_id="+ id + "&amount="+amount;
 	}
+	
 	
 	function shopping(id){
 		if(${sessionScope.user==null}){
@@ -65,33 +63,41 @@
 		location.href = "collect?id="+id;
 		}
 	}
+	
+	function orderinfo(id){
+		
+		location.href = "orderinfo?id="+id;
+		
+	}
+	
 </script>
 </head>
 <body>
-<div id="headCon">
-	<!--页头-->
-	<div class="header1">
-				<div class="header1-cont">
-					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
-					</div>
-					<div class="right">
-						<ul>
+	<div id="headCon">
+		<!--页头-->
+		<div class="header1">
+			<div class="header1-cont">
+				<div class="left">
+					欢迎您来到鲜生购,&nbsp;<span><a class="a2"
+						onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
+				</div>
+				<div class="right">
+					<ul>
 						<c:if test="${sessionScope.user==null}">
 							<li><a href="login2.jsp">登录/注册<em></em></a></li>
 						</c:if>
-							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
-							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
-							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
-							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
-							<li><a href="login2.jsp">注销<em></em></a></li>							
-						</ul>
-						<div class="clear"></div>
-					</div>
+						<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
+						<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
+						<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
+						<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
+						<li><a href="login2.jsp">注销<em></em></a></li>
+					</ul>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
 			</div>
-		
+			<div class="clear"></div>
+		</div>
+
 		<ul>
 			<a href="index.html"><li></li></a>
 			<ol>
@@ -104,7 +110,7 @@
 					<button></button></li>
 			</ol>
 		</ul>
-		</div>
+	</div>
 	<!--内容-->
 	<div id="contentCon">
 		<div class="left">
@@ -114,7 +120,7 @@
 			<ul>
 				<li><a onclick="userinfo(${sessionScope.user.id});">个人信息</a></li>
 				<li><a onclick="order(${sessionScope.user.id});" class="my">我的订单</a></li>
-<!-- 				<li><a href="#">地址管理</a></li> -->
+				<!-- 				<li><a href="#">地址管理</a></li> -->
 				<li><a onclick="shopping(${sessionScope.user.id});">购物车</a></li>
 				<li><a onclick="collect(${sessionScope.user.id});">收藏夹</a></li>
 			</ul>
@@ -129,66 +135,69 @@
 			</ul>
 
 			<c:forEach items="${requestScope.orderlist}" var="o">
+			
 				<ol>
-					<input type="checkbox">
-					<p>${o.date}&nbsp;&nbsp;&nbsp;&nbsp;订单号：${o.code}</p>
+					<input type="checkbox" />
+					<p>${o.date}</p>
+					&nbsp;&nbsp;
+					<p>订单号：</p>
+					<p>${o.code}</p>
 					<a href="#"></a>
 				</ol>
 				<div>
+				<c:forEach items="${requestScope.orderlist2}" var="oo">
+				<c:if test="${oo.id==o.id}">
+					<dd class="item clearfix"
+						style="display: table; padding: 10px 0; color: #333;">
+						<div class="item-row">
+							<div style="margin-left: 10px">
+								<div style="margin-left: 10px">
+									<img src="${oo.pic}" width="70" height="80"> 	<a style="margin-left: 10px;">商品名称：${oo.fullname}</a>
+								</div>
+								<div style="margin-top: 27px;margin-right: 70px;font-size: 14px;color: #4c4c4c;">
+									<span style="margin-left: 10px;">数量：${oo.count}</span> <span style="margin-left: 10px;">单价：${oo.nowprice}</span>
+								</div>
+							</div>
+						</div>
+					</dd>
+				</c:if>
+				</c:forEach>
 					<ul>
-						<li href="#">原总价：</li>
-						<li class="price">¥${o.amount}</li>
-						<li href="#">现总价：</li>
-						<li class="price">¥${o.nowamount}</li>
-						<li><a href="#">收货地址：</a> <a href="#" class="text02">${o.aname}&nbsp;${o.aaddr}</a>
-						</li>
-						<li><a href="#">收货人：</a> <a href="#" class="text02">${o.uname}</a>
-						</li>
-						<li><a href="#">联系电话：</a> <a href="#" class="text02">${o.atel}</a>
-						</li>
-						<li><a href="#">评论：</a> <a href="#" class="text02">${o.assessstatusa}</a>
-						</li>
-						<li>
-							<c:if test="${o.status==0}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
+						<!-- 						<a onclick="orderinfo(o.id);">查看详情</a> -->
+						<li>原总价：¥${o.amount}</li>
+						<li>现总价：¥${o.nowamount}</li>
+						<li><a href="#">收货地址：${o.aname}&nbsp;${o.aaddr}</a></li>
+						<li><a href="#">收货人：${o.uname}</a></li>
+						<li><a href="#">联系电话：${o.atel}</a></li>
+						<li><a href="#">评论：${o.assessstatusa}</a></li>
+						<li><c:if test="${o.status==0}">
+								<a href="#">状态：${o.sa}</a>
 								<span>
 									<button
 										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
-										onclick="status1();">支付</button>
+										onclick="aaa('${o.code}',${o.id},${o.nowamount});">支付</button>
 								</span>
-							</c:if>
-							<c:if test="${o.status==2}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
+							</c:if> <c:if test="${o.status==2}">
+								<a href="#">状态：${o.sa}</a>
 								<span>
 									<button
 										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
-										onclick="status3();">收货</button>
-										<button
-										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
-										onclick="status4();">退货</button>
+										onclick="status3('${o.code}',${o.id},${o.nowamount});">收货</button>
 								</span>
-							</c:if>  
-							<c:if test="${o.status==1}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
-							</c:if>
-							<c:if test="${o.status==3}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
-							</c:if>
-							<c:if test="${o.status==4}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
-							</c:if>
-							<c:if test="${o.status==5}">
-								<a href="#">状态：</a>
-								<a href="#" class="text02">${o.sa}</a>
-							</c:if>
-							
-							
-						</li>
+							</c:if> <c:if test="${o.status==1}">
+								<a href="#">状态：${o.sa}</a>
+							</c:if> <c:if test="${o.status==3}">
+								<a href="#">状态：${o.sa}</a>
+								<span>
+									<button
+										style="display: inline-block; margin-bottom: 0; font-size: 14px; height: 38px; line-height: 38px; text-align: center; cursor: pointer; background-color: #fff; border: 1px solid #ff4a00; color: #ff4a00; padding: 0; width: 148px;"
+										onclick="status4('${o.code}',${o.id},${o.nowamount});">退货</button>
+								</span>
+							</c:if> <c:if test="${o.status==4}">
+								<a href="#">状态：${o.sa}</a>
+							</c:if> <c:if test="${o.status==5}">
+								<a href="#">状态：${o.sa}</a>
+							</c:if></li>
 					</ul>
 				</div>
 			</c:forEach>

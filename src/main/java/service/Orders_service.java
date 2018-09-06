@@ -18,4 +18,6 @@ public interface Orders_service {
 	public void insertorder(Orders o);
 	
 	public List<Orders> selectall();
+	
+	public int select2();
 }

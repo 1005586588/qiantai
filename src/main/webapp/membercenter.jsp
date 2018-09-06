@@ -156,7 +156,7 @@ function collect(id){
 					<dd>我的活动</dd>
 					<dt class="d3">设置中心</dt>
 					<dd class="dd1">个人信息</dd>
-					<dd>收货地址</dd>
+					
 
 				</li>
 
@@ -266,7 +266,7 @@ function collect(id){
 
 
 									<button onclick="save_info();" class="btn btn-success radius"
-										type="button">保存修改</button>
+										type="button" style="display: none;">保存修改</button>
 								</form>
 
 								<button onclick="modify();" class="btn btn-danger radius"

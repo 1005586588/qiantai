@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.Collect;
 import entity.User;
@@ -31,7 +32,17 @@ public class Collect_Controller {
 		return "Collect";
 	}
 	
-	
+	@RequestMapping("collectconfirm")
+	public @ResponseBody int collectconfirm(int user_id,int product_id,SearchInfo info) {
+		
+		String where=" where user_id="+user_id+" and product_id="+product_id+"";
+		info.setWhere(where);
+		if(service.select(info).size()!=0) {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 	
 	@RequestMapping("shoucang")
 	public String insert(Collect c,HttpSession session) {
@@ -45,21 +56,11 @@ public class Collect_Controller {
 		return "redirect:collect?id="+u.getId();
 	}
 
-//	@RequestMapping("delete")
-//	public String delete(int id) {
-//		service.delete(id);
-//		return "redirect:index";
-//	}
-//	
-
-//	@RequestMapping("deleteall")
-//	public  @ResponseBody Ids deleteall(Ids i) {
-//		// SqlHelper.executeUpdate("delete from quesbal where id in ("+ids+") ");
-//		service.deleteall(i);
-//		return new Ids(null);
-//	}
-
-
+	@RequestMapping("collectdelet")
+	public @ResponseBody int collectdelet(Integer id) {
+		service.delete(id);
+		return 1;
+	}
 
 	
 }

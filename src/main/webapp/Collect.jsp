@@ -13,6 +13,17 @@
 <link rel="stylesheet" href="css/carts.css">
 <link rel="stylesheet" type="text/css" href="css/header.css" />
 <script type="text/javascript">
+function del(id) {
+	if (confirm("确认删除？")) {
+	$.post("collectdelet", {id : id}, function(json) {
+		if(json==1){
+			alert("删除成功！");
+			window.location.reload();
+		}
+	}, "json")
+}
+}
+
 function shopping(id){
 	if(${sessionScope.user==null}){
 		alert("请先登录！！！")
@@ -151,11 +162,9 @@ function collect(id){
                         <p>${r.date}</p>
                     </li>
                     <li class="list_op">
-                        <p class="del"><a href="javascript:;" class="delBtn">移除商品</a></p>
+                        <p class="del"><a onclick="del(${r.id});" class="delBtn">移除商品</a></p>
                     </li>
-                    
                 </ul>
-                
                 
                 </c:forEach>
             </div>

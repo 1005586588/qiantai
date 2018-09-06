@@ -25,5 +25,4 @@ public interface Collect_dao {
 	@Select("select * from collect where id=#{id}")
 	public Collect getById(int id);
 
-
 }

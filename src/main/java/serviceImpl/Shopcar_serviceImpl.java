@@ -12,7 +12,7 @@ import service.Shopcar_service;
 import util.SearchInfo;
 
 @Service
-public class Shopcar_serviceImpl implements Shopcar_service{
+public class Shopcar_serviceImpl implements Shopcar_service {
 
 	@Autowired
 	Shopcar_dao dao;
@@ -23,7 +23,7 @@ public class Shopcar_serviceImpl implements Shopcar_service{
 
 	public void delete(int id) {
 		dao.delete(id);
-		
+
 	}
 
 	public Shopcar getById(int id) {
@@ -35,10 +35,11 @@ public class Shopcar_serviceImpl implements Shopcar_service{
 	}
 
 	public void deleteall(Orders o) {
-dao.deleteall(o);		
+		dao.deleteall(o);
 	}
 
+	public void updatecount(Shopcar s) {
+		dao.updatecount(s);
+	}
 
-	
-	
 }

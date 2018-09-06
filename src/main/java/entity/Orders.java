@@ -22,9 +22,30 @@ public class Orders {
 	String ids;
 	String atel;
 	String sids;
-	
-	
-	
+	int pid;
+	int type_id;
+	int salecount;
+	int collectcount;
+	int priority;
+	double price;
+	double nowprice;
+	String fullname;
+	String activity;
+	String tip;
+	String sale;
+	String info;
+	String pics;
+	String tname;
+	int parentid;
+	String parent_name;
+	String name ;
+	int scount;
+	int sid;
+
+	double nowprice2;
+	double price2;
+	int count2;
+	int productid;
 	
 	
 	double allcount;
@@ -37,6 +58,156 @@ public class Orders {
 	}
 	
 	
+	public static String[] getSstatus() {
+		return sstatus;
+	}
+	public static void setSstatus(String[] sstatus) {
+		Orders.sstatus = sstatus;
+	}
+	
+	
+	
+	
+	
+	
+	public double getNowprice2() {
+		return nowprice2;
+	}
+	public void setNowprice2(double nowprice2) {
+		this.nowprice2 = nowprice2;
+	}
+	public double getPrice2() {
+		return price2;
+	}
+	public void setPrice2(double price2) {
+		this.price2 = price2;
+	}
+	public int getCount2() {
+		return count2;
+	}
+	public void setCount2(int count2) {
+		this.count2 = count2;
+	}
+	public int getProductid() {
+		return productid;
+	}
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	public int getType_id() {
+		return type_id;
+	}
+	public void setType_id(int type_id) {
+		this.type_id = type_id;
+	}
+	public int getSalecount() {
+		return salecount;
+	}
+	public void setSalecount(int salecount) {
+		this.salecount = salecount;
+	}
+	public int getCollectcount() {
+		return collectcount;
+	}
+	public void setCollectcount(int collectcount) {
+		this.collectcount = collectcount;
+	}
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public double getNowprice() {
+		return nowprice;
+	}
+	public void setNowprice(double nowprice) {
+		this.nowprice = nowprice;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+	public String getActivity() {
+		return activity;
+	}
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+	public String getTip() {
+		return tip;
+	}
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
+	public String getSale() {
+		return sale;
+	}
+	public void setSale(String sale) {
+		this.sale = sale;
+	}
+	public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	public String getPics() {
+		return pics;
+	}
+	public void setPics(String pics) {
+		this.pics = pics;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+	public int getParentid() {
+		return parentid;
+	}
+	public void setParentid(int parentid) {
+		this.parentid = parentid;
+	}
+	public String getParent_name() {
+		return parent_name;
+	}
+	public void setParent_name(String parent_name) {
+		this.parent_name = parent_name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getScount() {
+		return scount;
+	}
+	public void setScount(int scount) {
+		this.scount = scount;
+	}
+	public int getSid() {
+		return sid;
+	}
+	public void setSid(int sid) {
+		this.sid = sid;
+	}
 	public String getSids() {
 		return sids;
 	}

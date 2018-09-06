@@ -14,9 +14,8 @@
 
 function status1(){ 
 	alert("支付成功！！")
-	var code = ${sessionScope.code};
-	location.href = "update1?code=" + code;
-	
+	var code = "${sessionScope.code}";
+	location.href = "update11?code=" + code;
 }
 
 </script>

@@ -16,7 +16,6 @@
 
 <script type="text/javascript">
 	function orders() {
-
 		var ids = [];
 		var sids = [];
 		$(".chk").each(function() {
@@ -34,11 +33,11 @@
 		var allcount2 = $(".s77").text();
 		allcount2 = parseFloat(allcount2.substring(1));
 		var id = ${sessionScope.user.id};
-		
+	
 		location.href = "orders?ids=" + ids + "&id=" + id + "&allcount="
 				+ allcount+"&allcount2="+allcount2 +"&sid="+sids;
-
 	}
+	
 
 	// 	function MYsubmit() {
 	// 		var data = [];
@@ -66,8 +65,18 @@
 	// 		});
 	// 	}
 
+	
 	function changercount(id, count) {
-
+		
+		$.ajax({
+				url : "changercount",
+				type : "POST",
+				data : {product_id:id,count:count},
+				success : function(json) {
+					if(json==0)
+					alert("失败");
+				}
+			});
 	}
 
 	function alljs() {
@@ -95,9 +104,15 @@
 		$(".s77").text("￥" + all2);
 	}
 
-	// 	function del(id) {
-	// 		$.post("shopcardelet", {id : id}, function(json) {}, "json")
-	// 	}
+		function del(id) {
+			if (confirm("确认删除？")) {
+			$.post("shopcardelet", {id : id}, function(json) {
+				if(json==1){
+					alert("删除成功！");
+				}
+			}, "json")
+		}
+	}
 
 	$(function() {
 
@@ -190,18 +205,19 @@
 	<div class="box">
 		<!--头部-->
 		<div class="header">
-		
-		
+
+
 			<div class="header1">
 				<div class="header1-cont">
 					<div class="left">
-						欢迎您来到鲜生购,&nbsp;<span><a class="a2" onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
+						欢迎您来到鲜生购,&nbsp;<span><a class="a2"
+							onclick="userinfo(${sessionScope.user.id});">${sessionScope.user.email}</a></span>
 					</div>
 					<div class="right">
 						<ul>
-						<c:if test="${sessionScope.user==null}">
-							<li><a href="login2.jsp">登录/注册<em></em></a></li>
-						</c:if>
+							<c:if test="${sessionScope.user==null}">
+								<li><a href="login2.jsp">登录/注册<em></em></a></li>
+							</c:if>
 							<li><a onclick="order(${sessionScope.user.id});">我的订单<em></em></a></li>
 							<li><a onclick="shopping(${sessionScope.user.id});">购物车<em></em></a></li>
 							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
@@ -213,9 +229,9 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-			
-			
-			
+
+
+
 			<div class="header2">
 				<div class="header2-cont">
 					<a href="index.html"><img src="img/images/gengduo_03.png" /></a>
@@ -235,9 +251,9 @@
 								<li><a class="red" href="">热门：</a></li>
 								<li><a class="red" href="">牛油果</a></li>
 								<li><a href="">草莓</a></li>
-								<li><a a class="red" href="">草莓</a></li>
+								<li><a class="red" href="">草莓</a></li>
 								<li><a href="">三文鱼</a></li>
-								<li><a a class="red" href="">有机菠菜</a></li>
+								<li><a class="red" href="">有机菠菜</a></li>
 								<li><a href="">蓝莓</a></li>
 								<li><a class="red" href="">百香果</a></li>
 								<li><a href="">牛肉</a></li>
@@ -247,13 +263,14 @@
 
 					</div>
 					<div class="gouwuche">
-						<em  onclick="shopping(${sessionScope.user.id});"></em></a><span  onclick="shopping(${sessionScope.user.id});">购物车</span>
+						<em onclick="shopping(${sessionScope.user.id});"></em><span
+							onclick="shopping(${sessionScope.user.id});">购物车</span>
 					</div>
 				</div>
 				<div class="clear"></div>
 			</div>
-			
-			
+
+
 			<div class="header3">
 				<div class="header3-cont">
 					<ul>
@@ -282,24 +299,23 @@
 			<div class="thing">
 				<c:forEach items="${requestScope.carlist}" var="c">
 
-					<ul class="down1">
+					<ul class="down1" myid="${c.id}">
 
 						<li class="l1"><input type="checkbox" class="chk"
-							myid="${c.id}" sid="${c.sid}" name="" id="" value="" /></li>
+							 myid="${c.id}" sid="${c.sid}" name="" id="" value="" /></li>
 						<li class="l2"><img src="${c.pic}"
 							style="width: 94px; height: 86px;" /></li>
 						<li class="l3"><a href="info?id=${c.id}"><p
 									style="margin-left: 30px; width: 120px">${c.fullname}</p></a></li>
 						<li class="l4">￥${c.price}</li>
-						<li class="l5">￥${c.nowprice}</li>
-						<li class="l6"><span class="n1">-</span> <span class="n2" >${c.scount}</span>
+						<li class="l5" style="margin-left: 120px;">￥${c.nowprice}</li>
+						<li class="l6" style="margin-left: 70px;"><span class="n1">-</span> <span class="n2">${c.scount}</span>
 							<span class="n3">+</span></li>
 
 						<li class="l7">￥${c.scount*c.nowprice}</li>
 						<li class="l8">
-							<p>移入收藏夹</p>
-							<p class="del">删除</p>
-							<p>查找相似</p>
+						
+							<p class="del" style="margin-top:20px " onclick="del(${c.sid});">删除</p>
 						</li>
 					</ul>
 				</c:forEach>
@@ -307,12 +323,11 @@
 
 			<div class="all2">
 				<input type="checkbox" name="" id="" value="" /><span class="s1">全选</span>
-				<span class="s2">删除选中商品</span><span class="s3 "  style="margin-left: 230px;">已选中商品</span> 
-				<span class="s4 s44">0</span><span class="s5">件</span>
-				<span class="s6">原总价(元)：</span>
-				<span class=" s77">￥0</span>
-				<span class="s6">现总价(元)：</span>
-				<span class="s7">￥0</span><span class="s8" onclick="orders()">结算</span>
+				<span class="s2">删除选中商品</span><span class="s3 "
+					style="margin-left: 230px;">已选中商品</span> <span class="s4 s44">0</span><span
+					class="s5">件</span> <span class="s6">原总价(元)：</span> <span
+					class=" s77">￥0</span> <span class="s6">现总价(元)：</span> <span
+					class="s7">￥0</span><span class="s8" onclick="orders()">结算</span>
 			</div>
 		</div>
 
@@ -418,6 +433,7 @@
 					<span>消费者维权电话：12305</span>
 					<p>Copyright&nbsp;©&nbsp;2010-2020&nbsp;xianshenggou.com&nbsp;版权所有</p>
 				</div>
+			</div>
 		</footer>
 	</div>
 </body>

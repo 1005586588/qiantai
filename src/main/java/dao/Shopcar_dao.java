@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import entity.Orders;
@@ -32,5 +33,8 @@ public interface Shopcar_dao {
 	
 	@Insert("insert into shopcar (product_id,user_id,count) values(#{product_id},#{user_id},#{count})")
 	public void insert(Shopcar s);
+	
+	@Update("update shopcar set count=#{count} where user_id=#{user_id} and product_id=#{product_id} ")
+	public void updatecount(Shopcar s);
 	
 }

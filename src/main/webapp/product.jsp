@@ -220,18 +220,18 @@ $(document).ready(function(){
 			}
 		};
 		
-function sendorder(){
+function buynow(){
 			
 			if(${sessionScope.user==null}){
 				alert("请先登录！！！")
 				location.href = "login2.jsp";
 			}else{
+				var count=parseInt($(".n2").text());
 				var allcount=${requestScope.product.nowprice};
 				var allcount2=${requestScope.product.price};
 				var product_id=${requestScope.product.id};
 				var user_id='${sessionScope.user.id}';
-				location.href = "orders1?ids="+product_id +"&id="+user_id+ "&allcount="
-				+ allcount+"&allcount2="+allcount2 ;
+				location.href = "orders1?ids="+product_id +"&id="+user_id+"&count="+count ;
 			}
 		};
 		
@@ -244,7 +244,21 @@ function shoucang(){
 			
 				var product_id=${requestScope.product.id};
 				var user_id='${sessionScope.user.id}';
-				location.href = "shoucang?product_id="+product_id +"&user_id="+user_id ;
+			
+				$.ajax({
+					url:"collectconfirm",
+					type:"POST",
+					data:{product_id:product_id,user_id:user_id},
+					success:function(data){
+						if(data==1){
+						alert("收藏夹中已存在！！！");
+					}else{
+						location.href = "shoucang?product_id="+product_id +"&user_id="+user_id;
+						alert("成功添加收藏夹！！！");
+					}
+				}
+				});
+				
 			}
 		};
 		function shopping(id){
@@ -430,7 +444,7 @@ $(function() {
 				<span class="n1">-</span> <span class="n2">1</span> <span class="n3">+</span>
 			</div>
 			<div class="words06">
-				<input class="goumai" onclick="sendorder()" name="立即购买"
+				<input class="goumai" onclick="buynow()" name="立即购买"
 					type="button" value="立即购买"> <input class="gouwuche"
 					onclick="addcar()" name="加入购物车" type="button" value="加入购物车">
 			</div>

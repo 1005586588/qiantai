@@ -17,4 +17,6 @@ public interface Shopcar_service {
 	public void insert(Shopcar s);
 	
 	public void deleteall(Orders o);
+	
+	public void updatecount(Shopcar s);
 }

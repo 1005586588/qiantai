@@ -40,6 +40,10 @@ public class Orders_serviceImpl implements Orders_service{
 	public List<Orders> selectall() {
 		return dao.selectall();
 	}
+
+	public int select2() {
+		return dao.select2();
+	}
 	
 
 	
