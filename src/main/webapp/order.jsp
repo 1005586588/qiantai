@@ -115,14 +115,14 @@
 	<div id="contentCon">
 		<div class="left">
 			<div></div>
-			<p>晨曦夏夜</p>
-			<a href="#">切换账号</a> <span></span>
+			<p>${sessionScope.user.email}</p>
+			<a href="login2.jsp">切换账号</a> <span></span>
 			<ul>
-				<li><a onclick="userinfo(${sessionScope.user.id});">个人信息</a></li>
-				<li><a onclick="order(${sessionScope.user.id});" class="my">我的订单</a></li>
+				<li><a href="" onclick="userinfo(${sessionScope.user.id});">个人信息</a></li>
+				<li><a href="" onclick="order(${sessionScope.user.id});" class="my">我的订单</a></li>
 				<!-- 				<li><a href="#">地址管理</a></li> -->
-				<li><a onclick="shopping(${sessionScope.user.id});">购物车</a></li>
-				<li><a onclick="collect(${sessionScope.user.id});">收藏夹</a></li>
+				<li><a href="" onclick="shopping(${sessionScope.user.id});">购物车</a></li>
+				<li><a href="" onclick="collect(${sessionScope.user.id});">收藏夹</a></li>
 			</ul>
 		</div>
 		<div class="right">

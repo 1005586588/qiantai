@@ -3,13 +3,11 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import entity.Product;
-import entity.Type;
 import util.SearchInfo;
 
 @Repository
@@ -31,7 +29,8 @@ public interface Product_dao {
 	@Select("select * from product where id=#{id}")
 	public Product getById(int id);
 
-	
+	@Update("update Product set salecount=salecount+#{count} where id=#{product_id} ")
+	public void updatesalecount(Product p);
 	
 	
 	

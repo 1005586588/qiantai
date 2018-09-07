@@ -217,7 +217,7 @@ public class Orders_Controller {
 
 	@RequestMapping("sendorder")
 	public @ResponseBody int sendorder(Orders_details od,Orders_status os,Orders o, HttpSession session, SearchInfo info, HttpServletRequest req) {
-		
+
 		
 		
 		if(session.getAttribute("sids")==null) {
@@ -252,6 +252,11 @@ public class Orders_Controller {
 			os.setAmount(o.getNowamount());
 			os.setComments(o.getComments());
 			oservice.insert(os);
+	
+			
+			   o.setCount2(od.getCount());
+	            o.setProductid(od.getProduct_id());
+	            service.updatesalecount(o);
 			
 			req.getSession().removeAttribute("code");
 			req.getSession().setAttribute("code", strDate);
@@ -280,6 +285,10 @@ public class Orders_Controller {
 	            od.setPrice(plist.get(0).getPrice());
 	            od.setNowprice(plist.get(0).getNowprice());
 	            dservice.insert(od);   
+	            
+	            o.setCount2(od.getCount());
+	            o.setProductid(od.getProduct_id());
+	            service.updatesalecount(o);
 	        }
 			
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -304,10 +313,6 @@ public class Orders_Controller {
 			req.getSession().setAttribute("allcount", o.getNowamount());
 			return 1;
 		}
-		
-		
-		
-		
 		
 		
 		

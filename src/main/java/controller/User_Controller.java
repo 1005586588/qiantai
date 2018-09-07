@@ -8,8 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import entity.Operator;
 import entity.User;
+import service.Address_service;
 import service.User_service;
 import util.JsonUtil.jsonInfo;
 
@@ -18,7 +18,8 @@ public class User_Controller {
 
 	@Autowired
 	User_service service;
-
+	@Autowired
+	Address_service aservice;
 	
 	@RequestMapping("userzuce")
 	public @ResponseBody int  userzuce(User u) {
@@ -28,7 +29,9 @@ public class User_Controller {
 	
 	@RequestMapping("userinfo")
 	public String userinfo(Integer id, ModelMap m) {
+		
 		m.put("info", service.getById(id));
+		m.put("addresslist", aservice.getById2(id));
 		return adduserinfo(m);
 	}
 
@@ -36,6 +39,8 @@ public class User_Controller {
 	public String adduserinfo(ModelMap m) {
 		m.put("levelstatus", User.levelstatus);
 		m.put("userstatus", User.userstatus);
+		
+		
 		return "membercenter";
 	}
 	

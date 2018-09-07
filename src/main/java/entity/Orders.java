@@ -41,6 +41,7 @@ public class Orders {
 	String name ;
 	int scount;
 	int sid;
+	int count;
 
 	double nowprice2;
 	double price2;
@@ -58,6 +59,12 @@ public class Orders {
 	}
 	
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public static String[] getSstatus() {
 		return sstatus;
 	}

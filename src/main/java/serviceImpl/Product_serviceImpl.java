@@ -39,6 +39,10 @@ public class Product_serviceImpl implements Product_service{
 		return dao.selectproduct(info);
 	}
 
+	public void updatesalecount(Product p) {
+		dao.updatesalecount(p);
+	}
+
 
 	
 }

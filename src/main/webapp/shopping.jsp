@@ -124,7 +124,6 @@
 				$(".chk").prop("checked", "");
 				alljs();
 			}
-
 		})
 
 		$(".chk").on("click", function() {

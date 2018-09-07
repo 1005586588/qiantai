@@ -83,7 +83,9 @@ function zhuxiao(){
 							<li><a onclick="collect(${sessionScope.user.id});">收藏夹<em></em></a></li>
 							<li><a onclick="userinfo(${sessionScope.user.id});">会员中心<em></em></a></li>
 <!-- 							<li><a onclick="zhuxiao();">注销<em></em></a></li> -->
+						<c:if test="${sessionScope.user!=null}">
 							<li><a href="login2.jsp">注销<em></em></a></li>
+						</c:if>
 							
 						</ul>
 						<div class="clear"></div>
@@ -257,7 +259,7 @@ function zhuxiao(){
 									</p>
 									<p class="p2">${r.fullname}</p>
 									<p class="p3">${r.tip}</p>
-									<p class="p4">${r.price}</p>
+									<p class="p4">${r.nowprice}</p>
 									<p class="p5">
 										已售<span>${r.salecount}</span>件
 									</p>

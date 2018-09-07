@@ -23,8 +23,8 @@
 <script src="houtai_css/assets/js/jquery.dataTables.min.js"></script>
 <script src="houtai_css/assets/js/jquery.dataTables.bootstrap.js"></script>
 
-<script type="text/javascript">
 
+<script type="text/javascript">
 function shopping(id){
 	if(${sessionScope.user==null}){
 		alert("请先登录！！！")

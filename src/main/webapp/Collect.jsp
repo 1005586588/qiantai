@@ -114,10 +114,10 @@ function collect(id){
 <div id="contentCon">
 	<ul>
     	<li>
-        	<p>我的收藏（5）</p>
+        	<p>我的收藏</p>
             <span></span>
         </li>
-        <p>优惠（2）</p>
+       
     </ul>
     <section class="cartMain">
         <div class="cartMain_hd">
@@ -149,8 +149,8 @@ function collect(id){
                         <label for="checkbox_2"></label>
                     </li>
                     <li class="list_con">
-                        <div class="list_img"><a href="javascript:;"><img src="${r.pic}"alt=""></a></div>
-                        <div class="list_text"><a href="javascript:;">${r.fullname}</a></div>
+                        <div class="list_img"><a href="info?id=${r.product_id}"><img src="${r.pic}"alt=""></a></div>
+                        <div class="list_text"><a href="info?id=${r.product_id}">${r.fullname}</a></div>
                     </li>
                     <li class="list_info">
                         <p>￥${r.price}</p>

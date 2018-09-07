@@ -38,4 +38,7 @@ public interface Orders_dao {
 	@Update("update orders set status=#{status} where code= '${code}' ")
 	public void updatestatus(Orders o);
 	
+	@Update("update Product set salecount=salecount+#{count2} where id = #{productid} ")
+	public void updatesalecount(Orders o);
+	
 }

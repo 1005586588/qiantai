@@ -25,6 +25,7 @@ public class Product {
 	String name ;
 	int scount;
 	int sid;
+	int count;
 	
 	
 	
@@ -44,6 +45,12 @@ public class Product {
 	
 	
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getSid() {
 		return sid;
 	}

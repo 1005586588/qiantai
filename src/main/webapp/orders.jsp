@@ -279,7 +279,8 @@ function editaddr(){
 					<div class="checkout-box-bd">
 						<!-- 地址状态 0：默认选择；1：新增地址；2：修改地址 -->
 						<input type="hidden" name="Checkout[addressState]" id="addrState"
-							value="0"> <!-- 收货地址 -->
+							value="0" /> <!-- 收货地址 -->
+							
 							<div class="xm-box">
 								<div class="box-hd ">
 									<h2 class="title">收货地址</h2>
@@ -329,13 +330,13 @@ function editaddr(){
 											<div class="item">
 												<label>收货人姓名<span>*</span></label> <input type="text"
 													name="userAddress[consignee]" id="Consignee" class="input1"
-													placeholder="收货人姓名" maxlength="15" autocomplete='off'>
+													placeholder="收货人姓名" maxlength="15" autocomplete='off' />
 													<p class="tip-msg tipMsg"></p>
 											</div>
 											<div class="item">
 												<label>联系电话<span>*</span></label> <input type="text"
 													name="tel" class="input2" id="Telephone"
-													placeholder="11位手机号" autocomplete='off'>
+													placeholder="11位手机号" autocomplete='off' />
 													<p class="tel-modify-tip" id="telModifyTip"></p>
 													<p class="tip-msg tipMsg"></p>
 											</div>

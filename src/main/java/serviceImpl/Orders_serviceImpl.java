@@ -44,7 +44,10 @@ public class Orders_serviceImpl implements Orders_service{
 	public int select2() {
 		return dao.select2();
 	}
+
+	public void updatesalecount(Orders o) {
+		dao.updatesalecount(o);
+	}
 	
 
-	
 }

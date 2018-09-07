@@ -20,4 +20,6 @@ public interface Orders_service {
 	public List<Orders> selectall();
 	
 	public int select2();
+	
+	public void updatesalecount(Orders o);
 }

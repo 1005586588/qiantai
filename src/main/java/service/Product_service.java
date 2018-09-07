@@ -3,7 +3,6 @@ package service;
 import java.util.List;
 
 import entity.Product;
-import entity.Type;
 import util.SearchInfo;
 
 public interface Product_service {
@@ -17,4 +16,6 @@ public interface Product_service {
 	public List<Product> selectcshopcar(SearchInfo info);
 	
 	public List<Product> selectproduct(SearchInfo info);
+	
+	public void updatesalecount(Product p);
 }
